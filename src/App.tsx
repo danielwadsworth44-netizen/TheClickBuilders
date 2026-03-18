@@ -1,4 +1,12 @@
-import { useEffect, useMemo, useState } from 'react'
+import {
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type CSSProperties,
+  type FormEvent,
+  type ReactNode,
+} from 'react'
 import './App.css'
 
 const bookingUrl =
@@ -33,12 +41,13 @@ const caseStudies = [
 
 const proofStats = [
   {
-    value: '+21.6%',
-    title: 'More form submissions from faster lead-gen sites',
+    value: '45% vs 12%',
+    title: 'Revenue growth from stronger web presence',
     detail:
-      'Google-commissioned research found that improving mobile speed by 0.1s increased progression to the form submission page by 21.6% for lead generation sites.',
+      'Google-commissioned Deloitte research found that digitally advanced SMBs using tools like websites, analytics, and online marketing saw 45% revenue growth, versus 12% for basic adopters.',
     sourceLabel: 'Google / Deloitte',
-    sourceUrl: 'https://web.dev/case-studies/milliseconds-make-millions',
+    sourceUrl:
+      'https://blog.google/outreach-initiatives/small-business/four-ways-web-supports-small-business-growthnew-research-deloitte',
   },
   {
     value: '17-50ms',
@@ -50,62 +59,122 @@ const proofStats = [
       'https://research.google/blog/users-love-simple-and-familiar-designs-why-websites-need-to-make-a-great-first-impression/',
   },
   {
-    value: '4,500+',
-    title: 'People studied in Stanford credibility research',
+    value: '+20-50%',
+    title: 'Typical conversion lift after a redesign',
     detail:
-      'Stanford’s web credibility guidance emphasizes professional design, clear contact information, and ease of use as signals that build trust.',
-    sourceLabel: 'Stanford',
-    sourceUrl: 'https://credibility.stanford.edu/guidelines/index.html',
+      'One SMB-focused redesign benchmark estimates a 20% to 50% conversion-rate increase within 6 to 12 months when the update includes clear goals, CRO, and stronger messaging.',
+    sourceLabel: 'KrishaWeb',
+    sourceUrl: 'https://www.krishaweb.com/blog/ai-website-redesign-roi-smb/',
   },
 ]
 
 const quickReplies = [
-  'I need more booked calls',
-  'I want a better-looking site',
-  'I need help with messaging',
-  'I was referred here',
+  'I need a new website',
+  'I already have a site but it needs work',
+  'I want better design and messaging',
+  'I am exploring options',
 ]
 
 type Page = 'home' | 'case-studies'
+type RevealDirection = 'up' | 'left' | 'right'
+type ChatRole = 'assistant' | 'user'
+type ChatStage = 'goal' | 'existing-site' | 'site-feedback' | 'wrap-up'
+
+type ChatMessage = {
+  role: ChatRole
+  text: string
+}
 
 const getPageFromHash = (): Page =>
   window.location.hash === '#case-studies' ? 'case-studies' : 'home'
 
+function Reveal({
+  children,
+  className = '',
+  direction = 'up',
+  delay = 0,
+}: {
+  children: ReactNode
+  className?: string
+  direction?: RevealDirection
+  delay?: number
+}) {
+  const ref = useRef<HTMLDivElement | null>(null)
+  const [visible, setVisible] = useState(false)
+
+  useEffect(() => {
+    const node = ref.current
+
+    if (!node) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.18 },
+    )
+
+    observer.observe(node)
+
+    return () => observer.disconnect()
+  }, [])
+
+  const style: CSSProperties = {
+    transitionDelay: `${delay}ms`,
+  }
+
+  return (
+    <div
+      ref={ref}
+      style={style}
+      className={`reveal reveal-${direction} ${visible ? 'is-visible' : ''} ${className}`.trim()}
+    >
+      {children}
+    </div>
+  )
+}
+
 function LogoMark() {
   return (
-    <svg viewBox="0 0 72 72" aria-hidden="true">
-      <defs>
-        <linearGradient id="stairsGradient" x1="12" y1="60" x2="56" y2="16">
-          <stop offset="0%" stopColor="#fdba74" />
-          <stop offset="52%" stopColor="#60a5fa" />
-          <stop offset="100%" stopColor="#8b5cf6" />
-        </linearGradient>
-      </defs>
-      <path
-        d="M12 56h16V44h12V32h12V20h16"
-        fill="none"
-        stroke="url(#stairsGradient)"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="8"
-      />
-      <path
-        d="M42 12h18v18"
-        fill="none"
-        stroke="#f8fafc"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="6"
-      />
-      <path
-        d="M60 12 40 32"
-        fill="none"
-        stroke="#f8fafc"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="6"
-      />
-    </svg>
+    <span className="logo-stage" aria-hidden="true">
+      <svg viewBox="0 0 96 96" className="stairs-icon">
+        <defs>
+          <linearGradient id="stairsGradient" x1="12" y1="76" x2="78" y2="10">
+            <stop offset="0%" stopColor="#f59e0b" />
+            <stop offset="48%" stopColor="#38bdf8" />
+            <stop offset="100%" stopColor="#8b5cf6" />
+          </linearGradient>
+        </defs>
+        <path
+          d="M14 74h18V58h16V42h16V26h18"
+          fill="none"
+          stroke="url(#stairsGradient)"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="10"
+        />
+      </svg>
+      <span className="cursor-climber">
+        <svg viewBox="0 0 24 24" className="cursor-icon">
+          <path
+            d="M4 3.5 18.4 12l-6.4 1.3 3 6.7-3.1 1.5-3-6.6L4 19.3V3.5Z"
+            fill="#0f172a"
+          />
+          <path
+            d="M4 3.5 18.4 12l-6.4 1.3 3 6.7-3.1 1.5-3-6.6L4 19.3V3.5Z"
+            fill="none"
+            stroke="#ffffff"
+            strokeLinejoin="round"
+            strokeWidth="1.25"
+          />
+        </svg>
+      </span>
+    </span>
   )
 }
 
@@ -149,16 +218,106 @@ function BrowserPreview({ palette }: { palette: string }) {
   )
 }
 
+const buildAssistantReply = (input: string) => {
+  const normalized = input.toLowerCase()
+
+  if (normalized.includes('shop') || normalized.includes('ecommerce') || normalized.includes('product')) {
+    return 'That makes sense. We can shape the experience around product discovery, trust, and cleaner paths to purchase.'
+  }
+
+  if (normalized.includes('book') || normalized.includes('lead') || normalized.includes('call')) {
+    return 'Perfect. We would focus on sharper messaging, stronger calls-to-action, and a smoother booking or inquiry flow.'
+  }
+
+  if (normalized.includes('brand') || normalized.includes('look') || normalized.includes('design')) {
+    return 'Got it. We can help elevate the brand visually while still keeping the site simple and conversion-minded.'
+  }
+
+  return 'Thanks for sharing. We would use that as the starting point for the structure, messaging, and calls-to-action in your demo.'
+}
+
+const hasExistingWebsite = (input: string) => {
+  const normalized = input.toLowerCase()
+
+  return (
+    normalized.includes('yes') ||
+    normalized.includes('have') ||
+    normalized.includes('already') ||
+    normalized.includes('live') ||
+    normalized.includes('existing') ||
+    normalized.includes('current')
+  )
+}
+
+const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] => {
+  switch (stage) {
+    case 'goal':
+      return [
+        {
+          role: 'assistant',
+          text: buildAssistantReply(input),
+        },
+        {
+          role: 'assistant',
+          text: 'Do you already have a website live, or are you starting from scratch?',
+        },
+      ]
+    case 'existing-site':
+      return hasExistingWebsite(input)
+        ? [
+            {
+              role: 'assistant',
+              text: 'Helpful to know. What is already working well on the current site, and what feels like it needs the most fixing?',
+            },
+          ]
+        : [
+            {
+              role: 'assistant',
+              text: 'Starting fresh can be great because we can build the structure around your offer from day one.',
+            },
+            {
+              role: 'assistant',
+              text: 'What matters most for version one: better branding, more leads, selling products, clearer messaging, or something else?',
+            },
+          ]
+    case 'site-feedback':
+      return [
+        {
+          role: 'assistant',
+          text: 'That gives us useful direction. We would use that to shape the layout, messaging, and conversion flow around what matters most.',
+        },
+        {
+          role: 'assistant',
+          text: 'If you want to talk through it live, do you have time tonight at 5 pm or tomorrow at 2 pm?',
+        },
+      ]
+    case 'wrap-up':
+      return [
+        {
+          role: 'assistant',
+          text: 'Makes sense. If you keep sharing context here, we can keep narrowing in on the right direction before you book anything.',
+        },
+      ]
+  }
+}
+
 function App() {
   const [page, setPage] = useState<Page>(getPageFromHash)
   const [chatOpen, setChatOpen] = useState(false)
   const [userGoal, setUserGoal] = useState('')
   const [message, setMessage] = useState('')
-  const [messages, setMessages] = useState<string[]>([
-    'Hey, I am the TheClickBuilders demo assistant.',
-    'What are you hoping your next website does better: more leads, better trust, better messaging, or cleaner design?',
-    'Also, what brought you here today?',
+  const [chatStage, setChatStage] = useState<ChatStage>('goal')
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      role: 'assistant',
+      text: 'Hey, I am the TheClickBuilders demo assistant.',
+    },
+    {
+      role: 'assistant',
+      text: 'What brought you here today, and what are you hoping your website does better?',
+    },
   ])
+  const chatMessagesRef = useRef<HTMLDivElement | null>(null)
 
   const chatSummary = useMemo(() => {
     if (!userGoal.trim()) {
@@ -167,6 +326,8 @@ function App() {
 
     return `Your focus: ${userGoal}`
   }, [userGoal])
+
+  const hasStartedChat = messages.some((entry) => entry.role === 'user')
 
   useEffect(() => {
     const syncPage = () => {
@@ -178,29 +339,62 @@ function App() {
     return () => window.removeEventListener('hashchange', syncPage)
   }, [])
 
-  const handleQuickReply = (reply: string) => {
-    setUserGoal(reply)
-    setMessages((current) => [
-      ...current,
-      `You: ${reply}`,
-      'Perfect. We build custom websites around that exact growth goal.',
-      'When you are ready, use the booking button below and we will map out the funnel with you.',
-    ])
-  }
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
-
-    if (!message.trim()) {
+  useEffect(() => {
+    if (!chatOpen) {
       return
     }
 
-    setUserGoal(message)
+    const container = chatMessagesRef.current
+
+    if (!container) {
+      return
+    }
+
+    requestAnimationFrame(() => {
+      container.scrollTop = container.scrollHeight
+    })
+  }, [messages, chatOpen])
+
+  const handleQuickReply = (reply: string) => {
+    const nextStage =
+      chatStage === 'goal'
+        ? 'existing-site'
+        : chatStage === 'existing-site'
+          ? 'site-feedback'
+          : 'wrap-up'
+
+    setUserGoal(reply)
     setMessages((current) => [
       ...current,
-      `You: ${message.trim()}`,
-      'Thanks for sharing. We will use that context to make your demo more relevant.',
+      { role: 'user', text: reply },
+      ...getDiscoveryResponses(chatStage, reply),
     ])
+    setChatStage(nextStage)
+  }
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const trimmedMessage = message.trim()
+
+    if (!trimmedMessage) {
+      return
+    }
+
+    const nextStage =
+      chatStage === 'goal'
+        ? 'existing-site'
+        : chatStage === 'existing-site'
+          ? 'site-feedback'
+          : 'wrap-up'
+
+    setUserGoal(trimmedMessage)
+    setMessages((current) => [
+      ...current,
+      { role: 'user', text: trimmedMessage },
+      ...getDiscoveryResponses(chatStage, trimmedMessage),
+    ])
+    setChatStage(nextStage)
     setMessage('')
   }
 
@@ -211,7 +405,12 @@ function App() {
   return (
     <div className="page-shell">
       <header className="site-header">
-        <button className="brand" type="button" onClick={() => navigateTo('home')} aria-label="TheClickBuilders home">
+        <button
+          className="brand"
+          type="button"
+          onClick={() => navigateTo('home')}
+          aria-label="TheClickBuilders home"
+        >
           <span className="brand-mark">
             <LogoMark />
           </span>
@@ -246,109 +445,128 @@ function App() {
         {page === 'home' ? (
           <>
             <section className="hero-section">
-              <div className="hero-copy">
-                <p className="eyebrow">Custom web design for service businesses that need real growth</p>
-                <h1>Bright, premium websites built to make the right people trust you fast.</h1>
+              <Reveal className="hero-copy" direction="left">
+                <p className="eyebrow">Custom websites for brands, businesses, products, and service companies</p>
+                <h1>We build sleek websites that make your next click feel like the right one.</h1>
                 <p className="hero-text">
-                  TheClickBuilders designs personalized websites for companies that want
-                  better positioning, stronger first impressions, and more booked demos.
+                  TheClickBuilders creates modern, personalized websites for companies that
+                  need a better first impression, clearer messaging, and stronger conversion
+                  paths across web and mobile.
                 </p>
 
                 <div className="hero-actions">
                   <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
                     Book a Demo
                   </a>
-                  <button className="button button-secondary" type="button" onClick={() => navigateTo('case-studies')}>
+                  <button
+                    className="button button-secondary"
+                    type="button"
+                    onClick={() => navigateTo('case-studies')}
+                  >
                     View Case Studies
                   </button>
                 </div>
 
                 <div className="trust-row">
                   <span>Custom-built around your offer</span>
-                  <span>Google Calendar booking ready</span>
+                  <span>Optimized for mobile and desktop</span>
                   <span>Messaging that sells the next step</span>
                 </div>
-              </div>
+              </Reveal>
 
-              <div className="hero-panel">
+              <Reveal className="hero-panel" direction="right" delay={120}>
                 <div className="hero-card hero-card-primary">
                   <p className="card-label">What we build</p>
-                  <h2>Sites that feel tailor-made because they are.</h2>
+                  <h2>Sites that feel tailored, fast, and conversion-minded.</h2>
                   <p>
-                    We build around your market, your service, and your sales process so the
-                    site feels premium and the next action feels obvious.
+                    From ecommerce brands to SaaS products to local companies, we shape the
+                    experience around what your audience needs to see, feel, and do next.
                   </p>
                 </div>
 
                 <div className="hero-card hero-card-glow">
                   <p className="card-label">Inside the experience</p>
                   <div className="mini-stack">
-                    <span>Sharper messaging</span>
-                    <span>Stronger visual hierarchy</span>
-                    <span>Clear booking and inquiry paths</span>
+                    <span>Sharper brand storytelling</span>
+                    <span>Cleaner interaction design</span>
+                    <span>Clear booking, buying, and inquiry paths</span>
                   </div>
                 </div>
+              </Reveal>
+            </section>
+
+            <section className="section section-tight">
+              <Reveal className="section-heading">
+                <p className="eyebrow">Real web performance signals</p>
+                <h2>Good websites can influence first impressions, trust, and lead flow.</h2>
+              </Reveal>
+
+              <div className="stats-grid">
+                {proofStats.map((stat, index) => {
+                  const direction: RevealDirection =
+                    index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+
+                  return (
+                    <Reveal key={stat.title} direction={direction} delay={index * 110}>
+                      <article className="stat-card">
+                        <p className="stat-value">{stat.value}</p>
+                        <h3>{stat.title}</h3>
+                        <p>{stat.detail}</p>
+                        <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
+                          Source: {stat.sourceLabel}
+                        </a>
+                      </article>
+                    </Reveal>
+                  )
+                })}
               </div>
             </section>
 
             <section className="section">
-              <div className="section-heading">
+              <Reveal className="section-heading">
                 <p className="eyebrow">Why it works</p>
-                <h2>A modern website should create trust quickly and move visitors toward action.</h2>
-              </div>
+                <h2>A modern website should build trust quickly and feel easy to act on.</h2>
+              </Reveal>
 
               <div className="value-grid">
-                <article className="value-card">
-                  <h3>Made for your exact business</h3>
-                  <p>
-                    No generic layouts. Every section is tailored around your offer,
-                    objections, and ideal customer journey.
-                  </p>
-                </article>
-                <article className="value-card">
-                  <h3>Built for conversion</h3>
-                  <p>
-                    We focus on clarity, trust signals, and a cleaner path to booking,
-                    inquiry, or purchase.
-                  </p>
-                </article>
-                <article className="value-card">
-                  <h3>Connected to scheduling</h3>
-                  <p>
-                    Your site can send qualified traffic straight into your Google Calendar
-                    demo flow without extra friction.
-                  </p>
-                </article>
-              </div>
-            </section>
-
-            <section className="section section-tight">
-              <div className="section-heading">
-                <p className="eyebrow">Real web performance signals</p>
-                <h2>Good websites can influence first impressions, trust, and lead flow.</h2>
-              </div>
-
-              <div className="stats-grid">
-                {proofStats.map((stat) => (
-                  <article key={stat.title} className="stat-card">
-                    <p className="stat-value">{stat.value}</p>
-                    <h3>{stat.title}</h3>
-                    <p>{stat.detail}</p>
-                    <a href={stat.sourceUrl} target="_blank" rel="noreferrer">
-                      Source: {stat.sourceLabel}
-                    </a>
+                <Reveal direction="left" delay={0}>
+                  <article className="value-card">
+                    <h3>Made for your exact audience</h3>
+                    <p>
+                      We do not force every client into one lane. We build for products,
+                      brands, ecommerce, professional services, and growth-focused companies.
+                    </p>
                   </article>
-                ))}
+                </Reveal>
+                <Reveal direction="up" delay={120}>
+                  <article className="value-card">
+                    <h3>Built for conversion</h3>
+                    <p>
+                      We focus on clarity, trust signals, motion, and stronger calls-to-action
+                      so the site feels premium without feeling busy.
+                    </p>
+                  </article>
+                </Reveal>
+                <Reveal direction="right" delay={240}>
+                  <article className="value-card">
+                    <h3>Responsive by default</h3>
+                    <p>
+                      Every layout is tuned for desktop and mobile so the brand stays sharp and
+                      the next action stays obvious on every screen.
+                    </p>
+                  </article>
+                </Reveal>
               </div>
             </section>
 
             <section className="section booking-section">
-              <div className="booking-copy">
+              <Reveal className="booking-copy" direction="left">
                 <p className="eyebrow">Book your strategy demo</p>
                 <h2>Tell us what brought you here, and we will map the site around that goal.</h2>
                 <p>
-                  Whether you need more booked calls, stronger positioning, or a site that
-                  actually feels premium, we will show you the clearest path forward.
+                  Whether you need stronger positioning, a more modern visual system, a better
+                  shopping experience, or more booked calls, we will show you the clearest path
+                  forward.
                 </p>
                 <div className="booking-actions">
                   <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
@@ -360,44 +578,52 @@ function App() {
                     .
                   </p>
                 </div>
-              </div>
+              </Reveal>
 
-              <div className="booking-panel">
-                <p className="card-label">On the demo</p>
-                <ul className="checklist">
-                  <li>We identify what your current site says well and where it loses trust.</li>
-                  <li>We plan the pages, sections, and calls-to-action your business really needs.</li>
-                  <li>We show how design, copy, and booking flow should work together.</li>
-                </ul>
-              </div>
+              <Reveal direction="right" delay={120}>
+                <div className="booking-panel">
+                  <p className="card-label">On the demo</p>
+                  <ul className="checklist">
+                    <li>We identify what your current site says well and where it loses trust.</li>
+                    <li>We plan the pages, sections, and calls-to-action your business really needs.</li>
+                    <li>We show how design, messaging, and interaction should work together.</li>
+                  </ul>
+                </div>
+              </Reveal>
             </section>
           </>
         ) : (
           <section className="case-studies-page">
-            <div className="page-intro">
+            <Reveal className="page-intro">
               <p className="eyebrow">Case studies</p>
               <h1>Landing page designs made to feel custom, clear, and conversion-ready.</h1>
               <p className="hero-text">
                 These case study previews are presented as visual landing page mockups rather
                 than long writeups, so visitors can see the level of polish immediately.
               </p>
-            </div>
+            </Reveal>
 
             <div className="case-study-list">
-              {caseStudies.map((study) => (
-                <article key={study.name} className={`case-study-card ${study.accent}`}>
-                  <BrowserPreview palette={study.palette} />
-                  <div className="case-study-copy">
-                    <p className="work-category">{study.category}</p>
-                    <h2>{study.name}</h2>
-                    <p>{study.headline}</p>
-                    <ul className="case-study-points">
-                      {study.details.map((detail) => (
-                        <li key={detail}>{detail}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </article>
+              {caseStudies.map((study, index) => (
+                <Reveal
+                  key={study.name}
+                  direction={index % 2 === 0 ? 'left' : 'right'}
+                  delay={index * 90}
+                >
+                  <article className={`case-study-card ${study.accent}`}>
+                    <BrowserPreview palette={study.palette} />
+                    <div className="case-study-copy">
+                      <p className="work-category">{study.category}</p>
+                      <h2>{study.name}</h2>
+                      <p>{study.headline}</p>
+                      <ul className="case-study-points">
+                        {study.details.map((detail) => (
+                          <li key={detail}>{detail}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </article>
+                </Reveal>
               ))}
             </div>
           </section>
@@ -428,19 +654,26 @@ function App() {
               </div>
             </div>
 
-            <div className="chat-messages">
+            <div ref={chatMessagesRef} className="chat-messages">
               {messages.map((entry, index) => (
-                <p key={`${entry}-${index}`}>{entry}</p>
+                <div
+                  key={`${entry.text}-${index}`}
+                  className={`chat-bubble chat-bubble-${entry.role}`}
+                >
+                  {entry.text}
+                </div>
               ))}
             </div>
 
-            <div className="quick-replies" aria-label="Suggested replies">
-              {quickReplies.map((reply) => (
-                <button key={reply} type="button" onClick={() => handleQuickReply(reply)}>
-                  {reply}
-                </button>
-              ))}
-            </div>
+            {!hasStartedChat ? (
+              <div className="quick-replies" aria-label="Suggested replies">
+                {quickReplies.map((reply) => (
+                  <button key={reply} type="button" onClick={() => handleQuickReply(reply)}>
+                    {reply}
+                  </button>
+                ))}
+              </div>
+            ) : null}
 
             <form className="chat-form" onSubmit={handleSubmit}>
               <label className="sr-only" htmlFor="chat-message">
@@ -451,14 +684,16 @@ function App() {
                 type="text"
                 value={message}
                 onChange={(event) => setMessage(event.target.value)}
-                placeholder="Tell us what brought you here..."
+                placeholder="Type your message..."
               />
               <button type="submit">Send</button>
             </form>
 
-            <a className="chat-booking-link" href={bookingUrl} target="_blank" rel="noreferrer">
-              Book your demo now
-            </a>
+            {chatStage === 'wrap-up' ? (
+              <a className="chat-booking-link" href={bookingUrl} target="_blank" rel="noreferrer">
+                Book your demo when you are ready
+              </a>
+            ) : null}
           </div>
         ) : null}
       </aside>
