@@ -617,8 +617,14 @@ function App() {
       </main>
 
       <footer className="site-footer">
-        <p>TheClickBuilders</p>
-        <p>We turn clicks into clients.</p>
+        <div className="footer-brand" aria-label="TheClickBuilders footer">
+          <span className="footer-logo">
+            <LogoMark />
+          </span>
+        </div>
+        <a className="footer-email" href="mailto:theclickbuilders@gmail.com">
+          theclickbuilders@gmail.com
+        </a>
       </footer>
 
       <aside className="chat-widget" aria-label="Chat assistant">
