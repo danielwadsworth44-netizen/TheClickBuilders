@@ -42,27 +42,27 @@ const caseStudies = [
 const proofStats = [
   {
     value: '45% vs 12%',
-    title: 'Revenue growth from stronger web presence',
+    title: 'Revenue growth with stronger digital presence',
     detail:
-      'Google-commissioned Deloitte research found that digitally advanced SMBs using tools like websites, analytics, and online marketing saw 45% revenue growth, versus 12% for basic adopters.',
+      'Advanced SMBs saw 45% revenue growth vs. 12% for basic adopters.',
     sourceLabel: 'Google / Deloitte',
     sourceUrl:
       'https://blog.google/outreach-initiatives/small-business/four-ways-web-supports-small-business-growthnew-research-deloitte',
   },
   {
     value: '17-50ms',
-    title: 'To shape a first impression',
+    title: 'To make a first impression',
     detail:
-      'Google Research cites studies showing users form an initial gut-feeling about a website in as little as 17 to 50 milliseconds.',
+      'Users form a gut reaction to a site in as little as 17 to 50 milliseconds.',
     sourceLabel: 'Google Research',
     sourceUrl:
       'https://research.google/blog/users-love-simple-and-familiar-designs-why-websites-need-to-make-a-great-first-impression/',
   },
   {
     value: '+20-50%',
-    title: 'Typical conversion lift after a redesign',
+    title: 'Average redesign conversion lift',
     detail:
-      'One SMB-focused redesign benchmark estimates a 20% to 50% conversion-rate increase within 6 to 12 months when the update includes clear goals, CRO, and stronger messaging.',
+      'A focused redesign can lift conversions by 20% to 50% over 6 to 12 months.',
     sourceLabel: 'KrishaWeb',
     sourceUrl: 'https://www.krishaweb.com/blog/ai-website-redesign-roi-smb/',
   },
@@ -447,11 +447,9 @@ function App() {
             <section className="hero-section">
               <Reveal className="hero-copy" direction="left">
                 <p className="eyebrow">Custom websites for brands, businesses, products, and service companies</p>
-                <h1>We build sleek websites that make your next click feel like the right one.</h1>
+                <h1>Sleek websites built to turn attention into action.</h1>
                 <p className="hero-text">
-                  TheClickBuilders creates modern, personalized websites for companies that
-                  need a better first impression, clearer messaging, and stronger conversion
-                  paths across web and mobile.
+                  Custom websites with sharper positioning, cleaner design, and better conversion paths.
                 </p>
 
                 <div className="hero-actions">
@@ -477,19 +475,18 @@ function App() {
               <Reveal className="hero-panel" direction="right" delay={120}>
                 <div className="hero-card hero-card-primary">
                   <p className="card-label">What we build</p>
-                  <h2>Sites that feel tailored, fast, and conversion-minded.</h2>
+                  <h2>Tailored sites that convert.</h2>
                   <p>
-                    From ecommerce brands to SaaS products to local companies, we shape the
-                    experience around what your audience needs to see, feel, and do next.
+                    Built around what your audience needs to see and do next.
                   </p>
                 </div>
 
                 <div className="hero-card hero-card-glow">
                   <p className="card-label">Inside the experience</p>
                   <div className="mini-stack">
-                    <span>Sharper brand storytelling</span>
-                    <span>Cleaner interaction design</span>
-                    <span>Clear booking, buying, and inquiry paths</span>
+                    <span>Sharper messaging</span>
+                    <span>Cleaner design</span>
+                    <span>Clear next steps</span>
                   </div>
                 </div>
               </Reveal>
@@ -498,16 +495,17 @@ function App() {
             <section className="section section-tight">
               <Reveal className="section-heading">
                 <p className="eyebrow">Real web performance signals</p>
-                <h2>Good websites can influence first impressions, trust, and lead flow.</h2>
+                <h2>Good websites change trust, leads, and growth.</h2>
               </Reveal>
 
               <div className="stats-grid">
                 {proofStats.map((stat, index) => {
                   const direction: RevealDirection =
                     index === 0 ? 'left' : index === 1 ? 'up' : 'right'
+                  const delay = index === 1 ? 0 : index === 0 ? 170 : 300
 
                   return (
-                    <Reveal key={stat.title} direction={direction} delay={index * 110}>
+                    <Reveal key={stat.title} direction={direction} delay={delay}>
                       <article className="stat-card">
                         <p className="stat-value">{stat.value}</p>
                         <h3>{stat.title}</h3>
@@ -525,16 +523,15 @@ function App() {
             <section className="section">
               <Reveal className="section-heading">
                 <p className="eyebrow">Why it works</p>
-                <h2>A modern website should build trust quickly and feel easy to act on.</h2>
+                <h2>Modern sites should feel clear, trusted, and easy to act on.</h2>
               </Reveal>
 
               <div className="value-grid">
                 <Reveal direction="left" delay={0}>
                   <article className="value-card">
-                    <h3>Made for your exact audience</h3>
+                    <h3>Built for your audience</h3>
                     <p>
-                      We do not force every client into one lane. We build for products,
-                      brands, ecommerce, professional services, and growth-focused companies.
+                      Built for brands, ecommerce, services, and growth-focused teams.
                     </p>
                   </article>
                 </Reveal>
@@ -542,8 +539,7 @@ function App() {
                   <article className="value-card">
                     <h3>Built for conversion</h3>
                     <p>
-                      We focus on clarity, trust signals, motion, and stronger calls-to-action
-                      so the site feels premium without feeling busy.
+                      Clearer messaging, stronger trust, better calls-to-action.
                     </p>
                   </article>
                 </Reveal>
@@ -551,8 +547,7 @@ function App() {
                   <article className="value-card">
                     <h3>Responsive by default</h3>
                     <p>
-                      Every layout is tuned for desktop and mobile so the brand stays sharp and
-                      the next action stays obvious on every screen.
+                      Sharp on desktop. Clean on mobile.
                     </p>
                   </article>
                 </Reveal>
@@ -562,18 +557,16 @@ function App() {
             <section className="section booking-section">
               <Reveal className="booking-copy" direction="left">
                 <p className="eyebrow">Book your strategy demo</p>
-                <h2>Tell us what brought you here, and we will map the site around that goal.</h2>
+                <h2>Tell us the goal. We will map the site around it.</h2>
                 <p>
-                  Whether you need stronger positioning, a more modern visual system, a better
-                  shopping experience, or more booked calls, we will show you the clearest path
-                  forward.
+                  Better positioning, sharper design, smoother buying, or more booked calls.
                 </p>
                 <div className="booking-actions">
                   <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
-                    Open Google Calendar
+                    Book a Demo
                   </a>
                   <p className="booking-note">
-                    Connect your live scheduling link with
+                    Add your live link with
                     <code> VITE_GOOGLE_CALENDAR_BOOKING_URL </code>
                     .
                   </p>
@@ -584,9 +577,9 @@ function App() {
                 <div className="booking-panel">
                   <p className="card-label">On the demo</p>
                   <ul className="checklist">
-                    <li>We identify what your current site says well and where it loses trust.</li>
-                    <li>We plan the pages, sections, and calls-to-action your business really needs.</li>
-                    <li>We show how design, messaging, and interaction should work together.</li>
+                    <li>See what is working.</li>
+                    <li>Find what needs fixing.</li>
+                    <li>Plan the right next steps.</li>
                   </ul>
                 </div>
               </Reveal>
@@ -596,10 +589,9 @@ function App() {
           <section className="case-studies-page">
             <Reveal className="page-intro">
               <p className="eyebrow">Case studies</p>
-              <h1>Landing page designs made to feel custom, clear, and conversion-ready.</h1>
+              <h1>Custom landing pages built to convert.</h1>
               <p className="hero-text">
-                These case study previews are presented as visual landing page mockups rather
-                than long writeups, so visitors can see the level of polish immediately.
+                Quick mockups that show the polish fast.
               </p>
             </Reveal>
 

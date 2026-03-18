@@ -42,9 +42,9 @@
 .reveal {
   opacity: 0;
   transition:
-    opacity 0.8s ease,
-    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
-    filter 0.8s ease;
+    opacity 1.05s ease,
+    transform 1.05s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.05s ease;
   filter: blur(8px);
 }
 
@@ -86,7 +86,7 @@
   background: transparent;
   color: var(--text-h);
   cursor: pointer;
-  transition: transform 0.25s ease;
+  transition: transform 0.35s ease;
 }
 
 .brand:hover {
@@ -125,7 +125,7 @@
   place-items: center;
   width: 18px;
   height: 18px;
-  animation: bounce-steps 4.8s cubic-bezier(0.22, 0.9, 0.3, 1) infinite;
+  animation: bounce-steps 5.6s cubic-bezier(0.22, 0.9, 0.3, 1) infinite;
 }
 
 .cursor-icon {
@@ -174,10 +174,10 @@
   font-weight: 600;
   cursor: pointer;
   transition:
-    transform 0.2s ease,
-    background 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease;
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .site-nav button.active,
@@ -251,10 +251,10 @@
   font-weight: 700;
   cursor: pointer;
   transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease,
-    background 0.2s ease;
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease,
+    background 0.3s ease;
 }
 
 .button:hover,
@@ -310,8 +310,8 @@
   box-shadow: var(--shadow);
   backdrop-filter: blur(18px);
   transition:
-    box-shadow 0.28s ease,
-    border-color 0.28s ease;
+    box-shadow 0.38s ease,
+    border-color 0.38s ease;
 }
 
 .hero-card {
@@ -623,7 +623,7 @@
   color: #fff;
   box-shadow: 0 20px 45px rgba(14, 165, 233, 0.35);
   cursor: pointer;
-  animation: pulse-glow 3s ease-in-out infinite;
+  animation: pulse-glow 3.8s ease-in-out infinite;
 }
 
 .chat-toggle svg {
@@ -664,7 +664,7 @@
   padding: 12px 14px;
   border-radius: 18px;
   line-height: 1.5;
-  animation: bubble-in 0.28s ease;
+  animation: bubble-in 0.42s ease;
 }
 
 .chat-bubble-assistant {
@@ -694,8 +694,8 @@
   color: var(--text-h);
   cursor: pointer;
   transition:
-    transform 0.2s ease,
-    background 0.2s ease;
+    transform 0.28s ease,
+    background 0.28s ease;
 }
 
 .quick-replies button {
