@@ -464,12 +464,6 @@ function App() {
                     View Case Studies
                   </button>
                 </div>
-
-                <div className="trust-row">
-                  <span>Custom-built around your offer</span>
-                  <span>Optimized for mobile and desktop</span>
-                  <span>Messaging that sells the next step</span>
-                </div>
               </Reveal>
 
               <Reveal className="hero-panel" direction="right" delay={120}>
@@ -482,11 +476,11 @@ function App() {
                 </div>
 
                 <div className="hero-card hero-card-glow">
-                  <p className="card-label">Inside the experience</p>
+                  <p className="card-label">What we fix first</p>
                   <div className="mini-stack">
-                    <span>Sharper messaging</span>
-                    <span>Cleaner design</span>
-                    <span>Clear next steps</span>
+                    <span>Outdated design</span>
+                    <span>Weak messaging</span>
+                    <span>Confusing next steps</span>
                   </div>
                 </div>
               </Reveal>
