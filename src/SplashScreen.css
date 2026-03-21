@@ -1,0 +1,285 @@
+/* Full-screen splash: cursor traces ring → stairs → dollar (see keyframes) */
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background:
+    radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.15), transparent 45%),
+    linear-gradient(180deg, #f8fcff 0%, #e8f4ff 100%);
+  animation: splash-fade-in 0.6s ease forwards;
+}
+
+@keyframes splash-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.splash-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: min(520px, 100%);
+}
+
+.splash-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.splash-hint {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted-strong, #475569);
+  text-align: center;
+}
+
+.splash-skip {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1001;
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(120, 144, 176, 0.35);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text-h, #0f172a);
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+}
+
+.splash-skip:hover {
+  background: #fff;
+  border-color: rgba(124, 58, 237, 0.45);
+}
+
+.splash-logo-stage {
+  position: relative;
+  width: min(420px, 88vw);
+  margin-top: 8px;
+}
+
+.splash-logo-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Cursor: ring (0–38%) → stairs (38–78%) → dollar + click (78–100%) */
+.splash-cursor {
+  position: absolute;
+  z-index: 2;
+  width: 28px;
+  height: 28px;
+  margin-left: -8px;
+  margin-top: -4px;
+  color: #0f172a;
+  filter: drop-shadow(0 1px 0 #fff) drop-shadow(0 2px 6px rgba(15, 23, 42, 0.35));
+  pointer-events: none;
+  animation: splash-cursor-path 11s cubic-bezier(0.45, 0.05, 0.55, 0.95) forwards;
+}
+
+.splash-cursor-svg {
+  display: block;
+}
+
+.splash-cursor--settled {
+  animation: none;
+  left: 52% !important;
+  top: 34% !important;
+}
+
+.splash-cursor--settled .splash-cursor-svg {
+  animation: splash-cursor-nudge 2.2s ease-in-out infinite;
+}
+
+@keyframes splash-cursor-nudge {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(2px, 1px) scale(1.04);
+  }
+}
+
+@keyframes splash-cursor-path {
+  /* Elliptical “3D” ring around laptop base (front arc lower, back arc slightly higher) */
+  0% {
+    left: 76%;
+    top: 71%;
+  }
+  4% {
+    left: 82%;
+    top: 74%;
+  }
+  8% {
+    left: 72%;
+    top: 79%;
+  }
+  12% {
+    left: 58%;
+    top: 82%;
+  }
+  16% {
+    left: 42%;
+    top: 82%;
+  }
+  20% {
+    left: 28%;
+    top: 79%;
+  }
+  24% {
+    left: 18%;
+    top: 74%;
+  }
+  28% {
+    left: 14%;
+    top: 69%;
+  }
+  32% {
+    left: 22%;
+    top: 64%;
+  }
+  36% {
+    left: 38%;
+    top: 60%;
+  }
+  38% {
+    left: 52%;
+    top: 58%;
+  }
+
+  /* Approach bottom of stairs (inside screen) */
+  40% {
+    left: 46%;
+    top: 62%;
+  }
+  44% {
+    left: 48%;
+    top: 58%;
+  }
+  48% {
+    left: 49%;
+    top: 54%;
+  }
+  52% {
+    left: 50%;
+    top: 50%;
+  }
+  56% {
+    left: 51%;
+    top: 46%;
+  }
+  60% {
+    left: 52%;
+    top: 42%;
+  }
+  64% {
+    left: 52%;
+    top: 38%;
+  }
+  68% {
+    left: 52%;
+    top: 36%;
+  }
+
+  /* Dollar — hover + click pulse */
+  74% {
+    left: 51%;
+    top: 33%;
+    transform: scale(1);
+  }
+  78% {
+    left: 51%;
+    top: 33%;
+    transform: scale(0.92);
+  }
+  82% {
+    left: 51%;
+    top: 33%;
+    transform: scale(1.05);
+  }
+  88% {
+    left: 51%;
+    top: 33%;
+    transform: scale(1);
+  }
+  100% {
+    left: 52%;
+    top: 34%;
+    transform: scale(1);
+  }
+}
+
+/* Invisible hit target on dollar — percentages tuned to typical logo layout */
+.splash-dollar-hit {
+  position: absolute;
+  z-index: 3;
+  left: 51%;
+  top: 33%;
+  width: min(22%, 96px);
+  height: min(16%, 72px);
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  opacity: 0;
+  transition: box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.splash-dollar-hit:disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.splash-dollar-hit--active:not(:disabled) {
+  pointer-events: auto;
+  opacity: 1;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.28) 0%, transparent 72%);
+  box-shadow: 0 0 0 3px rgba(234, 179, 8, 0.55);
+}
+
+.splash-dollar-hit--active:focus-visible {
+  outline: 3px solid #7c3aed;
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .splash-screen {
+    animation: none;
+  }
+
+  .splash-cursor {
+    display: none;
+  }
+
+  .splash-dollar-hit {
+    opacity: 1;
+    background: radial-gradient(circle, rgba(251, 191, 36, 0.25) 0%, transparent 70%);
+    pointer-events: auto;
+  }
+}

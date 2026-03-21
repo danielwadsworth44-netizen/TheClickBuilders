@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import './App.css'
+import { SplashScreen } from './SplashScreen'
 
 const bookingUrl =
   import.meta.env.VITE_GOOGLE_CALENDAR_BOOKING_URL || 'https://calendar.google.com/'
@@ -69,10 +70,10 @@ const proofStats = [
 ]
 
 const quickReplies = [
-  'I need a new website',
-  'I already have a site but it needs work',
-  'I want better design and messaging',
-  'I am exploring options',
+  'New website',
+  'Fix my current site',
+  'Better design & messaging',
+  'Just exploring',
 ]
 
 type Page = 'home' | 'case-studies'
@@ -302,6 +303,14 @@ const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] =
 }
 
 function App() {
+  const [splashDismissed, setSplashDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('theclickbuilders_splash_seen') === '1'
+    } catch {
+      return false
+    }
+  })
+
   const [page, setPage] = useState<Page>(getPageFromHash)
   const [chatOpen, setChatOpen] = useState(false)
   const [userGoal, setUserGoal] = useState('')
@@ -310,24 +319,22 @@ function App() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       role: 'assistant',
-      text: 'Hey, I am the TheClickBuilders demo assistant.',
-    },
-    {
-      role: 'assistant',
-      text: 'What brought you here today, and what are you hoping your website does better?',
+      text: "Hi — I'm the TheClickBuilders assistant. What brought you here, and what should your site do better?",
     },
   ])
   const chatMessagesRef = useRef<HTMLDivElement | null>(null)
 
+  const hasStartedChat = messages.some((entry) => entry.role === 'user')
+
   const chatSummary = useMemo(() => {
     if (!userGoal.trim()) {
-      return 'Tell us your goal and we will tailor the demo around it.'
+      return hasStartedChat
+        ? 'Tell us your goal and we will tailor the demo around it.'
+        : 'Tap an option or type a message below.'
     }
 
     return `Your focus: ${userGoal}`
-  }, [userGoal])
-
-  const hasStartedChat = messages.some((entry) => entry.role === 'user')
+  }, [userGoal, hasStartedChat])
 
   useEffect(() => {
     const syncPage = () => {
@@ -403,7 +410,10 @@ function App() {
   }
 
   return (
-    <div className="page-shell">
+    <>
+      {!splashDismissed ? <SplashScreen onEnter={() => setSplashDismissed(true)} /> : null}
+
+      <div className="page-shell">
       <header className="site-header">
         <button
           className="brand"
@@ -471,7 +481,8 @@ function App() {
                   <p className="card-label">What we build</p>
                   <h2>Tailored sites that convert.</h2>
                   <p>
-                    Built around what your audience needs to see and do next.
+                    Custom design and copy for your offer and customers—not a cookie-cutter template. Every page
+                    points to one clear next step: book, buy, or contact.
                   </p>
                 </div>
 
@@ -638,7 +649,7 @@ function App() {
         </button>
 
         {chatOpen ? (
-          <div className="chat-panel">
+          <div className={`chat-panel ${hasStartedChat ? 'chat-panel--thread' : 'chat-panel--intro'}`}>
             <div className="chat-header">
               <div>
                 <strong>Website Strategy Agent</strong>
@@ -690,6 +701,7 @@ function App() {
         ) : null}
       </aside>
     </div>
+    </>
   )
 }
 

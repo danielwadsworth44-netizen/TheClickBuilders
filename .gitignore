@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Lead finder exports (may contain PII)
+tools/lead-finder/out
+
+# Local-only scraper / future API tooling — never commit or push
+scraper/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
