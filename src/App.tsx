@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import './App.css'
+import { BRAND_LOGO_SRC } from './brand'
 import { SplashScreen } from './SplashScreen'
 
 const bookingUrl =
@@ -140,42 +141,16 @@ function Reveal({
   )
 }
 
-function LogoMark() {
+function BrandLogo({ className = '' }: { className?: string }) {
   return (
-    <span className="logo-stage" aria-hidden="true">
-      <svg viewBox="0 0 96 96" className="stairs-icon">
-        <defs>
-          <linearGradient id="stairsGradient" x1="12" y1="76" x2="78" y2="10">
-            <stop offset="0%" stopColor="#f59e0b" />
-            <stop offset="48%" stopColor="#38bdf8" />
-            <stop offset="100%" stopColor="#8b5cf6" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M14 74h18V58h16V42h16V26h18"
-          fill="none"
-          stroke="url(#stairsGradient)"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="10"
-        />
-      </svg>
-      <span className="cursor-climber">
-        <svg viewBox="0 0 24 24" className="cursor-icon">
-          <path
-            d="M4 3.5 18.4 12l-6.4 1.3 3 6.7-3.1 1.5-3-6.6L4 19.3V3.5Z"
-            fill="#0f172a"
-          />
-          <path
-            d="M4 3.5 18.4 12l-6.4 1.3 3 6.7-3.1 1.5-3-6.6L4 19.3V3.5Z"
-            fill="none"
-            stroke="#ffffff"
-            strokeLinejoin="round"
-            strokeWidth="1.25"
-          />
-        </svg>
-      </span>
-    </span>
+    <img
+      className={className}
+      src={BRAND_LOGO_SRC}
+      alt=""
+      width={200}
+      height={200}
+      decoding="async"
+    />
   )
 }
 
@@ -422,7 +397,7 @@ function App() {
           aria-label="TheClickBuilders home"
         >
           <span className="brand-mark">
-            <LogoMark />
+            <BrandLogo className="brand-logo-img" />
           </span>
           <span className="brand-text">
             <strong>TheClickBuilders</strong>
@@ -630,7 +605,7 @@ function App() {
       <footer className="site-footer">
         <div className="footer-brand" aria-label="TheClickBuilders footer">
           <span className="footer-logo">
-            <LogoMark />
+            <BrandLogo className="brand-logo-img brand-logo-img--footer" />
           </span>
         </div>
         <a className="footer-email" href="mailto:theclickbuilders@gmail.com">
