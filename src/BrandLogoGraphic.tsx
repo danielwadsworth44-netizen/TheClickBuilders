@@ -54,8 +54,8 @@ function staircasePath() {
  */
 function LogoMarkContent({ ids }: { ids: GradIds }) {
   const steps = staircasePath()
-  const orbitBack = 'M 4 61.5 A 46 16.5 0 0 1 96 61.5'
-  const orbitFront = 'M 96 61.5 A 46 16.5 0 0 1 4 61.5'
+  const orbitBack = 'M 4 63 A 46 15.8 0 0 1 96 63'
+  const orbitFront = 'M 96 63 A 46 15.8 0 0 1 4 63'
 
   const dollarX = 67
   const dollarY = 44.2
@@ -71,12 +71,17 @@ function LogoMarkContent({ ids }: { ids: GradIds }) {
         stroke={`url(#${ids.orbit})`}
         strokeWidth="5.2"
         strokeLinecap="round"
-        opacity={0.42}
+        opacity={0.45}
       />
 
-      {/* Laptop base */}
-      <path d="M 18 71 L 82 71 L 86 76 L 14 76 Z" fill="#0c4a6e" />
-      <path d="M 16 76 L 84 76 L 82 79 L 18 79 Z" fill="#082f47" opacity={0.85} />
+      {/* Slightly tilted laptop with a visible keyboard deck */}
+      <path d="M 24.5 69.4 L 27 38 L 73 38 L 75.5 69.4 Z" fill="#0e3a5c" />
+      <path d="M 27.5 40.4 L 72.5 40.4 L 71 66.9 L 29 66.9 Z" fill={`url(#${ids.screen})`} />
+      <ellipse cx="61.5" cy="46.2" rx="13.5" ry="7.8" fill="#fff" opacity={0.2} />
+      <path d="M 21 69.4 L 79 69.4 L 84 72.5 L 16 72.5 Z" fill="#13456b" />
+      <path d="M 24.5 69.9 L 75.5 69.9 L 79.5 72.1 L 20.5 72.1 Z" fill="#1d5d89" opacity={0.55} />
+      <path d="M 18 72.5 L 82 72.5 L 86 76.2 L 14 76.2 Z" fill="#0c4a6e" />
+      <path d="M 16 76.2 L 84 76.2 L 82 79 L 18 79 Z" fill="#082f47" opacity={0.85} />
 
       {/* Front half of the same orbit, visible across the middle like a sash */}
       <path
@@ -87,11 +92,6 @@ function LogoMarkContent({ ids }: { ids: GradIds }) {
         strokeLinecap="round"
         opacity={0.98}
       />
-
-      {/* Screen bezel + glass */}
-      <path d="M 24 70 L 24 38 L 76 38 L 76 70 Z" fill="#0e3a5c" />
-      <rect x="26.5" y="40" width="47" height="28" rx="1.2" fill={`url(#${ids.screen})`} />
-      <ellipse cx="62" cy="46" rx="14" ry="8" fill="#fff" opacity={0.22} />
 
       {/* Readable staircase climbing bottom-left → top-right */}
       <path

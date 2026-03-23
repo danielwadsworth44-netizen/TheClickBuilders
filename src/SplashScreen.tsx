@@ -28,9 +28,6 @@ type SplashScreenProps = {
   onEnter: () => void
 }
 
-/** Delay after animation ends before transitioning (lets “click” read) */
-const EXIT_DELAY_MS = 550
-
 export function SplashScreen({ onEnter }: SplashScreenProps) {
   const reducedMotion =
     typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -62,7 +59,7 @@ export function SplashScreen({ onEnter }: SplashScreenProps) {
   const handleAnimationEnd = useCallback(
     (e: React.AnimationEvent<HTMLDivElement>) => {
       if (e.target !== e.currentTarget) return
-      exitTimerRef.current = setTimeout(finish, EXIT_DELAY_MS)
+      finish()
     },
     [finish],
   )
