@@ -100,7 +100,7 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   will-change: left, top, transform, opacity;
-  animation: splash-cursor-path 5.8s linear forwards;
+  animation: splash-cursor-path 4.2s linear forwards;
 }
 
 .splash-cursor-svg {
@@ -130,22 +130,22 @@
     left: 33.73%;
     top: 45.76%;
     z-index: 1;
-    opacity: 0.36;
-    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(1);
   }
   24% {
     left: 50%;
     top: 41.97%;
     z-index: 1;
-    opacity: 0.34;
-    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1);
   }
   32% {
     left: 66.27%;
     top: 45.76%;
     z-index: 1;
-    opacity: 0.36;
-    transform: translate(-50%, -50%) scale(0.92);
+    opacity: 0.32;
+    transform: translate(-50%, -50%) scale(1);
   }
   40% {
     left: 73%;
@@ -168,42 +168,42 @@
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  64% {
+  52% {
     left: 33.73%;
     top: 64.07%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  72% {
+  64% {
     left: 39.75%;
     top: 56.97%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  78% {
+  72% {
     left: 45.25%;
     top: 54.1%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  84% {
+  80% {
     left: 48%;
     top: 48.36%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  90% {
+  88% {
     left: 53.5%;
     top: 45.49%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  96% {
+  94% {
     left: 56.25%;
     top: 42.62%;
     z-index: 5;
