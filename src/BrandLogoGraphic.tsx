@@ -27,16 +27,16 @@ function LogoDefs({ ids }: { ids: GradIds }) {
         <stop offset="55%" stopColor="#7dd3fc" />
         <stop offset="100%" stopColor="#38bdf8" />
       </linearGradient>
-      <linearGradient id={ids.stair} x1="30" y1="64" x2="54" y2="36" gradientUnits="userSpaceOnUse">
+      <linearGradient id={ids.stair} x1="27" y1="67" x2="69" y2="42" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#ea580c" />
         <stop offset="50%" stopColor="#f97316" />
         <stop offset="100%" stopColor="#fbbf24" />
       </linearGradient>
-      <linearGradient id={ids.gold} x1="44" y1="22" x2="56" y2="34" gradientUnits="userSpaceOnUse">
+      <linearGradient id={ids.gold} x1="60" y1="38" x2="72" y2="48" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#fbbf24" />
         <stop offset="100%" stopColor="#ea580c" />
       </linearGradient>
-      <linearGradient id={ids.ray} x1="50" y1="22" x2="50" y2="30" gradientUnits="userSpaceOnUse">
+      <linearGradient id={ids.ray} x1="66" y1="36" x2="66" y2="44" gradientUnits="userSpaceOnUse">
         <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9} />
         <stop offset="100%" stopColor="#fbbf24" stopOpacity={0} />
       </linearGradient>
@@ -44,57 +44,109 @@ function LogoDefs({ ids }: { ids: GradIds }) {
   )
 }
 
-/** SplashScreen cursor path uses the same geometry: full SVG viewBox 200×118, g translate(50,4). */
+/** Stair quads from bottom-left → top-right across the screen */
+function stairFaces(bl: [number, number], tr: [number, number], steps: number, thickness: number) {
+  const dx = tr[0] - bl[0]
+  const dy = tr[1] - bl[1]
+  const len = Math.hypot(dx, dy)
+  const px = (-dy / len) * thickness
+  const py = (dx / len) * thickness
+  const faces: string[] = []
+  for (let i = 0; i < steps; i++) {
+    const t0 = i / steps
+    const t1 = (i + 1) / steps
+    const ax = bl[0] + t0 * dx
+    const ay = bl[1] + t0 * dy
+    const bx = bl[0] + t1 * dx
+    const by = bl[1] + t1 * dy
+    const cx = bx + px
+    const cy = by + py
+    const ddx = ax + px
+    const ddy = ay + py
+    faces.push(`M ${ax} ${ay} L ${bx} ${by} L ${cx} ${cy} L ${ddx} ${ddy} Z`)
+  }
+  return faces
+}
+
+/**
+ * Screen inner: x 26.5–73.5, y 40–68. Stairs BL→TR. Orbit: subtle back ring + bold front ring below laptop.
+ * SplashScreen cursor math: full viewBox 200×118, g translate(50,4).
+ */
 function LogoMarkContent({ ids }: { ids: GradIds }) {
+  const bl: [number, number] = [27.5, 66.2]
+  const tr: [number, number] = [69.5, 42.5]
+  const steps = stairFaces(bl, tr, 6, 2.8)
+
+  const dollarX = 66
+  const dollarY = 44
+  const rayCx = 66
+  const rayCy = 42.5
+
   return (
     <g>
+      {/* Back ring — full ellipse, sits behind the machine */}
       <ellipse
         cx="50"
         cy="56"
-        rx="44"
-        ry="19"
+        rx="42"
+        ry="16"
         fill="none"
         stroke={`url(#${ids.orbit})`}
-        strokeWidth="4.5"
+        strokeWidth="3"
         strokeLinecap="round"
-        opacity={0.95}
+        opacity={0.38}
       />
 
+      {/* Laptop base */}
       <path d="M 18 71 L 82 71 L 86 76 L 14 76 Z" fill="#0c4a6e" />
       <path d="M 16 76 L 84 76 L 82 79 L 18 79 Z" fill="#082f47" opacity={0.85} />
 
+      {/* Front ring — wide, low; reads in front of the keyboard / below the screen */}
+      <ellipse
+        cx="50"
+        cy="80.5"
+        rx="52"
+        ry="9"
+        fill="none"
+        stroke={`url(#${ids.orbit})`}
+        strokeWidth="5.5"
+        strokeLinecap="round"
+        opacity={0.98}
+      />
+
+      {/* Screen bezel + glass */}
       <path d="M 24 70 L 24 38 L 76 38 L 76 70 Z" fill="#0e3a5c" />
       <rect x="26.5" y="40" width="47" height="28" rx="1.2" fill={`url(#${ids.screen})`} />
       <ellipse cx="62" cy="46" rx="14" ry="8" fill="#fff" opacity={0.22} />
 
-      <path d="M 30 64 L 38 64 L 38 60 L 30 60 Z" fill={`url(#${ids.stair})`} />
-      <path d="M 32 60 L 42 60 L 42 55 L 32 55 Z" fill={`url(#${ids.stair})`} opacity={0.95} />
-      <path d="M 35 55 L 46 55 L 46 49 L 35 49 Z" fill={`url(#${ids.stair})`} opacity={0.92} />
-      <path d="M 38 49 L 50 49 L 50 42 L 38 42 Z" fill={`url(#${ids.stair})`} opacity={0.9} />
-      <path d="M 42 42 L 54 42 L 54 36 L 42 36 Z" fill={`url(#${ids.stair})`} opacity={0.88} />
+      {/* Stairs climbing bottom-left → top-right */}
+      {steps.map((d, i) => (
+        <path key={i} d={d} fill={`url(#${ids.stair})`} opacity={0.88 + i * 0.02} />
+      ))}
 
+      {/* Rays + $ — top of stair path, still inside screen */}
       <g opacity={0.55}>
         {[0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((deg) => (
           <line
             key={deg}
-            x1="50"
-            y1="30"
-            x2="50"
-            y2="22"
+            x1={rayCx}
+            y1={rayCy}
+            x2={rayCx}
+            y2={rayCy - 8}
             stroke={`url(#${ids.ray})`}
             strokeWidth="1.2"
             strokeLinecap="round"
-            transform={`rotate(${deg} 50 30)`}
+            transform={`rotate(${deg} ${rayCx} ${rayCy})`}
           />
         ))}
       </g>
 
       <text
-        x="50"
-        y="34"
+        x={dollarX}
+        y={dollarY}
         textAnchor="middle"
         fill={`url(#${ids.gold})`}
-        fontSize="14"
+        fontSize="13"
         fontWeight={900}
         fontFamily="system-ui, -apple-system, Segoe UI, sans-serif"
         fontStyle="italic"
@@ -106,10 +158,36 @@ function LogoMarkContent({ ids }: { ids: GradIds }) {
   )
 }
 
-/**
- * Vector brand mark: orange→blue orbit, laptop, stairs, dollar + rays.
- * “Full” adds the two-tone wordmark below (matches original PNG intent).
- */
+function Wordmark({
+  x,
+  y,
+  fontSize = 11,
+  tone = 'onDark',
+}: {
+  x: number
+  y: number
+  fontSize?: number
+  tone?: 'onDark' | 'onLight'
+}) {
+  const a = tone === 'onDark' ? '#f1f5f9' : '#0c4a6e'
+  const b = tone === 'onDark' ? '#fb923c' : '#ea580c'
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor="middle"
+      fontSize={fontSize}
+      fontWeight={800}
+      fontStyle="italic"
+      fontFamily="Manrope, Plus Jakarta Sans, system-ui, sans-serif"
+      letterSpacing="-0.03em"
+    >
+      <tspan fill={a}>TheClick</tspan>
+      <tspan fill={b}>Builders</tspan>
+    </text>
+  )
+}
+
 export function BrandLogoGraphic({ variant = 'mark', className = '', title }: BrandLogoGraphicProps) {
   const uid = useId().replace(/:/g, '')
   const ids: GradIds = {
@@ -126,7 +204,7 @@ export function BrandLogoGraphic({ variant = 'mark', className = '', title }: Br
     return (
       <svg
         className={className}
-        viewBox="0 0 200 118"
+        viewBox="0 0 200 122"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         role="img"
@@ -137,19 +215,7 @@ export function BrandLogoGraphic({ variant = 'mark', className = '', title }: Br
         <g transform="translate(50, 4)">
           <LogoMarkContent ids={ids} />
         </g>
-        <text
-          x="100"
-          y="110"
-          textAnchor="middle"
-          fontSize="12.5"
-          fontWeight={800}
-          fontStyle="italic"
-          fontFamily="Manrope, Plus Jakarta Sans, system-ui, sans-serif"
-          letterSpacing="-0.03em"
-        >
-          <tspan fill="#0c4a6e">TheClick</tspan>
-          <tspan fill="#ea580c">Builders</tspan>
-        </text>
+        <Wordmark x={100} y={116} fontSize={12.5} tone="onDark" />
       </svg>
     )
   }
