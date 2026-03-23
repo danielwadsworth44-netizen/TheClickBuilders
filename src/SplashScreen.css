@@ -100,7 +100,7 @@
   pointer-events: none;
   transform: translate(-50%, -50%);
   will-change: left, top, transform, opacity;
-  animation: splash-cursor-path 8.6s linear forwards;
+  animation: splash-cursor-path 5.8s linear forwards;
 }
 
 .splash-cursor-svg {
@@ -113,116 +113,102 @@
 */
 @keyframes splash-cursor-path {
   0% {
-    left: 73%;
-    top: 54.92%;
-    z-index: 5;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  8% {
-    left: 66.27%;
-    top: 64.07%;
-    z-index: 5;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  16% {
-    left: 50%;
-    top: 67.87%;
-    z-index: 5;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  24% {
     left: 33.73%;
     top: 64.07%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  32% {
+  8% {
     left: 27%;
     top: 54.92%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  40% {
+  16% {
     left: 33.73%;
     top: 45.76%;
     z-index: 1;
     opacity: 0.36;
     transform: translate(-50%, -50%) scale(0.92);
   }
-  48% {
+  24% {
     left: 50%;
     top: 41.97%;
     z-index: 1;
     opacity: 0.34;
     transform: translate(-50%, -50%) scale(0.9);
   }
-  56% {
+  32% {
     left: 66.27%;
     top: 45.76%;
     z-index: 1;
     opacity: 0.36;
     transform: translate(-50%, -50%) scale(0.92);
   }
-  64% {
+  40% {
     left: 73%;
     top: 54.92%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  70% {
+  48% {
+    left: 66.27%;
+    top: 64.07%;
+    z-index: 5;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  56% {
+    left: 50%;
+    top: 67.87%;
+    z-index: 5;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  64% {
+    left: 33.73%;
+    top: 64.07%;
+    z-index: 5;
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  72% {
     left: 39.75%;
     top: 56.97%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  74% {
+  78% {
     left: 45.25%;
     top: 54.1%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  78% {
+  84% {
     left: 48%;
     top: 48.36%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  82% {
+  90% {
     left: 53.5%;
     top: 45.49%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
-  86% {
+  96% {
     left: 56.25%;
     top: 42.62%;
     z-index: 5;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
-  }
-  90% {
-    left: 58.5%;
-    top: 39.51%;
-    z-index: 5;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  95% {
-    left: 58.5%;
-    top: 39.51%;
-    z-index: 5;
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(0.92);
   }
   100% {
     left: 58.5%;
