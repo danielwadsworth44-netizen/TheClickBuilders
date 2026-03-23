@@ -384,11 +384,7 @@ function App() {
           aria-label="TheClickBuilders home"
         >
           <span className="brand-mark">
-            <BrandLogoGraphic variant="mark" className="brand-logo-svg" />
-          </span>
-          <span className="brand-text">
-            <strong>TheClickBuilders</strong>
-            <span>We turn clicks into clients</span>
+            <BrandLogoGraphic variant="full" className="brand-logo-svg" />
           </span>
         </button>
 
@@ -592,7 +588,7 @@ function App() {
       <footer className="site-footer">
         <div className="footer-brand" aria-label="TheClickBuilders footer">
           <span className="footer-logo">
-            <BrandLogoGraphic variant="mark" className="brand-logo-svg brand-logo-svg--footer" />
+            <BrandLogoGraphic variant="full" className="brand-logo-svg brand-logo-svg--footer" />
           </span>
         </div>
         <a className="footer-email" href="mailto:theclickbuilders@gmail.com">

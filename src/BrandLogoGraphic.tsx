@@ -44,72 +44,46 @@ function LogoDefs({ ids }: { ids: GradIds }) {
   )
 }
 
-/** Stair quads from bottom-left → top-right across the screen */
-function stairFaces(bl: [number, number], tr: [number, number], steps: number, thickness: number) {
-  const dx = tr[0] - bl[0]
-  const dy = tr[1] - bl[1]
-  const len = Math.hypot(dx, dy)
-  const px = (-dy / len) * thickness
-  const py = (dx / len) * thickness
-  const faces: string[] = []
-  for (let i = 0; i < steps; i++) {
-    const t0 = i / steps
-    const t1 = (i + 1) / steps
-    const ax = bl[0] + t0 * dx
-    const ay = bl[1] + t0 * dy
-    const bx = bl[0] + t1 * dx
-    const by = bl[1] + t1 * dy
-    const cx = bx + px
-    const cy = by + py
-    const ddx = ax + px
-    const ddy = ay + py
-    faces.push(`M ${ax} ${ay} L ${bx} ${by} L ${cx} ${cy} L ${ddx} ${ddy} Z`)
-  }
-  return faces
+function staircasePath() {
+  return 'M 29.5 65.5 H 35 V 62 H 40.5 V 58.5 H 46 V 55 H 51.5 V 51.5 H 57 V 48 H 62.5 V 44.5 H 68'
 }
 
 /**
- * Screen inner: x 26.5–73.5, y 40–68. Stairs BL→TR. Orbit: subtle back ring + bold front ring below laptop.
- * SplashScreen cursor math: full viewBox 200×118, g translate(50,4).
+ * Screen inner: x 26.5–73.5, y 40–68. Stairs climb BL→TR. Orbit is a single ring,
+ * split into back/front arcs by the laptop so it reads like one sash.
  */
 function LogoMarkContent({ ids }: { ids: GradIds }) {
-  const bl: [number, number] = [27.5, 66.2]
-  const tr: [number, number] = [69.5, 42.5]
-  const steps = stairFaces(bl, tr, 6, 2.8)
+  const steps = staircasePath()
+  const orbitBack = 'M 4 61.5 A 46 16.5 0 0 1 96 61.5'
+  const orbitFront = 'M 96 61.5 A 46 16.5 0 0 1 4 61.5'
 
-  const dollarX = 66
-  const dollarY = 44
-  const rayCx = 66
-  const rayCy = 42.5
+  const dollarX = 67
+  const dollarY = 44.2
+  const rayCx = 67
+  const rayCy = 42.8
 
   return (
     <g>
-      {/* Back ring — full ellipse, sits behind the machine */}
-      <ellipse
-        cx="50"
-        cy="56"
-        rx="42"
-        ry="16"
+      {/* Single orbit, hidden behind the laptop on the back arc */}
+      <path
+        d={orbitBack}
         fill="none"
         stroke={`url(#${ids.orbit})`}
-        strokeWidth="3"
+        strokeWidth="5.2"
         strokeLinecap="round"
-        opacity={0.38}
+        opacity={0.42}
       />
 
       {/* Laptop base */}
       <path d="M 18 71 L 82 71 L 86 76 L 14 76 Z" fill="#0c4a6e" />
       <path d="M 16 76 L 84 76 L 82 79 L 18 79 Z" fill="#082f47" opacity={0.85} />
 
-      {/* Front ring — wide, low; reads in front of the keyboard / below the screen */}
-      <ellipse
-        cx="50"
-        cy="80.5"
-        rx="52"
-        ry="9"
+      {/* Front half of the same orbit, visible across the middle like a sash */}
+      <path
+        d={orbitFront}
         fill="none"
         stroke={`url(#${ids.orbit})`}
-        strokeWidth="5.5"
+        strokeWidth="5.2"
         strokeLinecap="round"
         opacity={0.98}
       />
@@ -119,10 +93,24 @@ function LogoMarkContent({ ids }: { ids: GradIds }) {
       <rect x="26.5" y="40" width="47" height="28" rx="1.2" fill={`url(#${ids.screen})`} />
       <ellipse cx="62" cy="46" rx="14" ry="8" fill="#fff" opacity={0.22} />
 
-      {/* Stairs climbing bottom-left → top-right */}
-      {steps.map((d, i) => (
-        <path key={i} d={d} fill={`url(#${ids.stair})`} opacity={0.88 + i * 0.02} />
-      ))}
+      {/* Readable staircase climbing bottom-left → top-right */}
+      <path
+        d={steps}
+        fill="none"
+        stroke="#7c2d12"
+        strokeWidth="6.6"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+        opacity={0.32}
+      />
+      <path
+        d={steps}
+        fill="none"
+        stroke={`url(#${ids.stair})`}
+        strokeWidth="5"
+        strokeLinecap="square"
+        strokeLinejoin="miter"
+      />
 
       {/* Rays + $ — top of stair path, still inside screen */}
       <g opacity={0.55}>
