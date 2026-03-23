@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react'
-import { BRAND_LOGO_SRC } from './brand'
+import { BrandLogoGraphic } from './BrandLogoGraphic'
 import './SplashScreen.css'
 
 const STORAGE_KEY = 'theclickbuilders_splash_seen'
@@ -94,16 +94,8 @@ export function SplashScreen({ onEnter }: SplashScreenProps) {
           {reducedMotion ? 'Loading…' : 'Loading your experience…'}
         </p>
 
-        <div className="splash-logo-stage">
-          {/* Laptop + ring art — cursor z-index crosses above / below this layer */}
-          <img
-            className="splash-logo-img"
-            src={BRAND_LOGO_SRC}
-            alt=""
-            width={480}
-            height={480}
-            decoding="async"
-          />
+        <div className="splash-logo-stage splash-logo-stage--vector">
+          <BrandLogoGraphic variant="full" className="splash-logo-svg" title="TheClickBuilders" />
 
           {!reducedMotion && (
             <div className="splash-cursor" onAnimationEnd={handleAnimationEnd} aria-hidden>

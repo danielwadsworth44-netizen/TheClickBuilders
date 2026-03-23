@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 92" fill="none">
+  <defs>
+    <linearGradient id="o" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="s" x1="26" y1="40" x2="74" y2="68" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#bae6fd"/>
+      <stop offset="100%" stop-color="#38bdf8"/>
+    </linearGradient>
+    <linearGradient id="t" x1="30" y1="64" x2="54" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="100%" stop-color="#fbbf24"/>
+    </linearGradient>
+    <linearGradient id="g" x1="44" y1="22" x2="56" y2="34" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fbbf24"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+  </defs>
+  <ellipse cx="50" cy="56" rx="44" ry="19" fill="none" stroke="url(#o)" stroke-width="5" stroke-linecap="round"/>
+  <path d="M18 71h64l4 5H14z" fill="#0c4a6e"/>
+  <path d="M24 70V38h52v32z" fill="#0e3a5c"/>
+  <rect x="26.5" y="40" width="47" height="28" rx="1.2" fill="url(#s)"/>
+  <path d="M30 64h8v-4h-8zm2-4h10v-5H32zm3-5h11v-6H35zm3-6h12v-7H38zm4-7h12v-6H42z" fill="url(#t)"/>
+  <text x="50" y="34" text-anchor="middle" fill="url(#g)" font-size="14" font-weight="900" font-style="italic" font-family="system-ui,sans-serif">$</text>
+</svg>

@@ -8,7 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import './App.css'
-import { BRAND_LOGO_SRC } from './brand'
+import { BrandLogoGraphic } from './BrandLogoGraphic'
 import { SplashScreen } from './SplashScreen'
 
 const bookingUrl =
@@ -138,19 +138,6 @@ function Reveal({
     >
       {children}
     </div>
-  )
-}
-
-function BrandLogo({ className = '' }: { className?: string }) {
-  return (
-    <img
-      className={className}
-      src={BRAND_LOGO_SRC}
-      alt=""
-      width={200}
-      height={200}
-      decoding="async"
-    />
   )
 }
 
@@ -397,7 +384,7 @@ function App() {
           aria-label="TheClickBuilders home"
         >
           <span className="brand-mark">
-            <BrandLogo className="brand-logo-img" />
+            <BrandLogoGraphic variant="mark" className="brand-logo-svg" />
           </span>
           <span className="brand-text">
             <strong>TheClickBuilders</strong>
@@ -605,7 +592,7 @@ function App() {
       <footer className="site-footer">
         <div className="footer-brand" aria-label="TheClickBuilders footer">
           <span className="footer-logo">
-            <BrandLogo className="brand-logo-img brand-logo-img--footer" />
+            <BrandLogoGraphic variant="mark" className="brand-logo-svg brand-logo-svg--footer" />
           </span>
         </div>
         <a className="footer-email" href="mailto:theclickbuilders@gmail.com">
