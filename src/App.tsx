@@ -44,9 +44,9 @@ const caseStudies = [
 const proofStats = [
   {
     value: '45% vs 66%',
-    title: 'SMBs under $100k revenue',
+    title: 'Businesses under $100k in revenue',
     detail:
-      '45% of businesses with a website report revenue at $100k or less, versus 66% without a website.',
+      'Only 45% of businesses with a website fall below $100k in revenue, compared with 66% of businesses without one.',
     sourceLabel: 'Small Business Majority',
     sourceUrl:
       'https://smallbusinessmajority.org/our-research/digital-transformation/digital-transformation-small-businesses-face-obstacles-opportunities-growing-online-presence',

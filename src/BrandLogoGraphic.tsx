@@ -29,12 +29,13 @@ function LogoDefs({ ids }: { ids: GradIds }) {
         <stop offset="100%" stopColor="#fb923c" />
       </linearGradient>
       <linearGradient id={ids.gold} x1="60" y1="38" x2="72" y2="48" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#fbbf24" />
-        <stop offset="100%" stopColor="#ea580c" />
+        <stop offset="0%" stopColor="#ffffff" />
+        <stop offset="68%" stopColor="#f8fafc" />
+        <stop offset="100%" stopColor="#dcfce7" />
       </linearGradient>
       <linearGradient id={ids.ray} x1="66" y1="36" x2="66" y2="44" gradientUnits="userSpaceOnUse">
-        <stop offset="0%" stopColor="#fbbf24" stopOpacity={0.9} />
-        <stop offset="100%" stopColor="#fbbf24" stopOpacity={0} />
+        <stop offset="0%" stopColor="#86efac" stopOpacity={0.82} />
+        <stop offset="100%" stopColor="#86efac" stopOpacity={0} />
       </linearGradient>
     </defs>
   )
@@ -44,17 +45,18 @@ function staircasePath() {
   return 'M 29.5 65.5 H 35 V 62 H 40.5 V 58.5 H 46 V 55 H 51.5 V 51.5 H 57 V 48 H 62.5 V 44.5 H 68'
 }
 
-function CursorGraphic({ x = 68.3, y = 43.3, scale = 0.82 }: { x?: number; y?: number; scale?: number }) {
+function CursorGraphic({ x = 68.3, y = 43.3, scale = 0.62 }: { x?: number; y?: number; scale?: number }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`}>
       <path
         d="M-7.2 -10.4 L 1.8 -0.8 L -2.8 -0.2 L -0.6 5.2 L -3.8 6.4 L -6 1 L -9.8 3.1 Z"
-        fill="#f8fafc"
-        stroke="#cbd5e1"
-        strokeWidth="0.85"
+        fill="#020617"
+        stroke="#f8fafc"
+        strokeWidth="0.95"
         strokeLinejoin="round"
         style={{ filter: 'drop-shadow(0 1px 0 rgba(15, 23, 42, 0.5)) drop-shadow(0 2px 4px rgba(15, 23, 42, 0.4))' }}
       />
+      <path d="M-5.4 -7.8 L -0.4 -2.4 L -3.1 -1.9 Z" fill="#e2e8f0" opacity={0.9} />
     </g>
   )
 }
@@ -178,7 +180,10 @@ function LogoMarkContent({ ids, showCursor = false }: { ids: GradIds; showCursor
         fontWeight={900}
         fontFamily="system-ui, -apple-system, Segoe UI, sans-serif"
         fontStyle="italic"
-        style={{ filter: 'drop-shadow(0 1px 1px rgba(180, 83, 9, 0.45))' }}
+        stroke="#22c55e"
+        strokeWidth="0.75"
+        paintOrder="stroke"
+        style={{ filter: 'drop-shadow(0 1px 1px rgba(21, 128, 61, 0.28))' }}
       >
         $
       </text>

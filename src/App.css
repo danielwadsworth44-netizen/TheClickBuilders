@@ -365,6 +365,7 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.value-grid > .reveal,
 .stats-grid > .reveal {
   height: 100%;
 }
@@ -375,6 +376,7 @@
   padding: 24px;
 }
 
+.value-card,
 .stat-card {
   display: flex;
   flex-direction: column;
@@ -391,6 +393,7 @@
   opacity: 0.82;
 }
 
+.value-card p,
 .stat-card p:not(.stat-value) {
   flex: 1 1 auto;
 }
