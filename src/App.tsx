@@ -43,13 +43,13 @@ const caseStudies = [
 
 const proofStats = [
   {
-    value: '45% vs 12%',
-    title: 'Revenue growth with stronger digital presence',
+    value: '45% vs 66%',
+    title: 'SMBs under $100k revenue',
     detail:
-      'Advanced SMBs saw 45% revenue growth vs. 12% for basic adopters.',
-    sourceLabel: 'Google / Deloitte',
+      '45% of businesses with a website report revenue at $100k or less, versus 66% without a website.',
+    sourceLabel: 'Small Business Majority',
     sourceUrl:
-      'https://blog.google/outreach-initiatives/small-business/four-ways-web-supports-small-business-growthnew-research-deloitte',
+      'https://smallbusinessmajority.org/our-research/digital-transformation/digital-transformation-small-businesses-face-obstacles-opportunities-growing-online-presence',
   },
   {
     value: '17-50ms',
@@ -384,7 +384,7 @@ function App() {
           aria-label="TheClickBuilders home"
         >
           <span className="brand-mark">
-            <BrandLogoGraphic variant="full" className="brand-logo-svg" />
+            <BrandLogoGraphic variant="full" className="brand-logo-svg" showCursor />
           </span>
         </button>
 
@@ -540,9 +540,9 @@ function App() {
                 <div className="booking-panel">
                   <p className="card-label">On the demo</p>
                   <ul className="checklist">
-                    <li>See what is working.</li>
-                    <li>Find what needs fixing.</li>
-                    <li>Plan the right next steps.</li>
+                    <li>See a custom-built website concept for your company, brand, or product.</li>
+                    <li>Give feedback and we will refine the details with you.</li>
+                    <li>Buy the site and run it yourself, or have us maintain and update it when needed.</li>
                   </ul>
                 </div>
               </Reveal>
@@ -588,7 +588,7 @@ function App() {
       <footer className="site-footer">
         <div className="footer-brand" aria-label="TheClickBuilders footer">
           <span className="footer-logo">
-            <BrandLogoGraphic variant="full" className="brand-logo-svg brand-logo-svg--footer" />
+            <BrandLogoGraphic variant="full" className="brand-logo-svg brand-logo-svg--footer" showCursor />
           </span>
         </div>
         <a className="footer-email" href="mailto:theclickbuilders@gmail.com">

@@ -365,10 +365,20 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
+.stats-grid > .reveal {
+  height: 100%;
+}
+
 .value-card,
 .stat-card,
 .booking-panel {
   padding: 24px;
+}
+
+.stat-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .stat-card a {
@@ -376,7 +386,13 @@
   margin-top: 14px;
   color: var(--text-h);
   text-decoration: none;
-  font-weight: 700;
+  font-size: 0.82rem;
+  font-weight: 600;
+  opacity: 0.82;
+}
+
+.stat-card p:not(.stat-value) {
+  flex: 1 1 auto;
 }
 
 .stat-value {
