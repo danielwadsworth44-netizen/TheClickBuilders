@@ -70,8 +70,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
-  padding: 16px 48px 14px;
+  gap: 14px;
+  padding: 10px 48px 10px;
   border-bottom: 1px solid var(--border);
   background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(12, 18, 32, 0.78));
   backdrop-filter: blur(18px);
@@ -96,7 +96,7 @@
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  width: clamp(210px, 22vw, 270px);
+  width: clamp(190px, 20vw, 250px);
 }
 
 .brand-logo-svg {
@@ -156,7 +156,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
   gap: 30px;
-  padding-top: 36px;
+  padding-top: 18px;
   padding-bottom: 56px;
 }
 
@@ -609,8 +609,8 @@
   justify-content: center;
   align-items: center;
   gap: 14px;
-  padding-top: 28px;
-  padding-bottom: 96px;
+  padding-top: 18px;
+  padding-bottom: 32px;
   color: var(--muted);
   text-align: center;
 }
@@ -857,9 +857,9 @@
   }
 
   .site-header {
-    gap: 14px;
-    padding-top: 14px;
-    padding-bottom: 12px;
+    gap: 10px;
+    padding-top: 8px;
+    padding-bottom: 8px;
   }
 
   .site-nav {
@@ -874,7 +874,8 @@
   }
 
   .hero-section {
-    padding-top: 24px;
+    padding-top: 12px;
+    padding-bottom: 44px;
   }
 
   .case-study-card {
@@ -884,9 +885,9 @@
 
 @media (max-width: 640px) {
   .site-header {
-    gap: 10px;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    gap: 8px;
+    padding-top: 6px;
+    padding-bottom: 6px;
   }
 
   .brand {
@@ -896,7 +897,7 @@
   }
 
   .brand-mark {
-    width: min(210px, 68vw);
+    width: min(180px, 60vw);
   }
 
   .site-nav {
@@ -907,9 +908,15 @@
   }
 
   .hero-section {
-    gap: 22px;
-    padding-top: 16px;
-    padding-bottom: 42px;
+    gap: 18px;
+    padding-top: 8px;
+    padding-bottom: 32px;
+  }
+
+  .site-footer {
+    gap: 10px;
+    padding-top: 12px;
+    padding-bottom: 18px;
   }
 
   .site-nav button,

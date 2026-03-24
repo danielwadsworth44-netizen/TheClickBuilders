@@ -528,11 +528,6 @@ function App() {
                   <a className="button button-primary" href={bookingUrl} target="_blank" rel="noreferrer">
                     Book a Demo
                   </a>
-                  <p className="booking-note">
-                    Add your live link with
-                    <code> VITE_GOOGLE_CALENDAR_BOOKING_URL </code>
-                    .
-                  </p>
                 </div>
               </Reveal>
 
