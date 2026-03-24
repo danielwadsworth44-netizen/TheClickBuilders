@@ -86,7 +86,7 @@ function LogoMarkContent({ ids, showCursor = false }: { ids: GradIds; showCursor
         stroke="#f97316"
         strokeWidth="4.9"
         strokeLinecap="round"
-        opacity={0.42}
+        opacity={0.68}
       />
       <path
         d={orbitBackRight}
@@ -94,7 +94,7 @@ function LogoMarkContent({ ids, showCursor = false }: { ids: GradIds; showCursor
         stroke="#38bdf8"
         strokeWidth="4.9"
         strokeLinecap="round"
-        opacity={0.42}
+        opacity={0.68}
       />
 
       <ellipse cx="50" cy="79.4" rx="29.5" ry="3.4" fill="#020617" opacity={0.28} />
@@ -124,7 +124,7 @@ function LogoMarkContent({ ids, showCursor = false }: { ids: GradIds; showCursor
         stroke="#38bdf8"
         strokeWidth="4.9"
         strokeLinecap="round"
-        opacity={0.98}
+        opacity={0.9}
       />
       <path
         d={orbitFrontLeft}
@@ -132,7 +132,7 @@ function LogoMarkContent({ ids, showCursor = false }: { ids: GradIds; showCursor
         stroke="#f97316"
         strokeWidth="4.9"
         strokeLinecap="round"
-        opacity={0.98}
+        opacity={0.9}
       />
 
       {/* Stair path with softer detailing so the mark feels less clip-art */}
