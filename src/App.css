@@ -96,7 +96,7 @@
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  width: clamp(190px, 20vw, 250px);
+  width: clamp(200px, 32vw, 300px);
 }
 
 .brand-logo-img {
@@ -633,7 +633,7 @@
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  width: min(220px, 62vw);
+  width: min(280px, 78vw);
 }
 
 .footer-email {
@@ -903,7 +903,7 @@
   }
 
   .brand-mark {
-    width: min(180px, 60vw);
+    width: min(240px, 72vw);
   }
 
   .site-nav {

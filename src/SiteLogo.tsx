@@ -5,9 +5,10 @@ type SiteLogoProps = {
   loading?: 'eager' | 'lazy'
 }
 
-const SRC = '/theclickbuilders-logo.jpg'
-const WIDTH = 350
-const HEIGHT = 223
+/** Primary mark (dark canvas); use a light-background asset elsewhere if needed. */
+const SRC = '/theclickbuilders-logo.png'
+const WIDTH = 653
+const HEIGHT = 408
 
 export function SiteLogo({ className = '', loading = 'lazy' }: SiteLogoProps) {
   return (
