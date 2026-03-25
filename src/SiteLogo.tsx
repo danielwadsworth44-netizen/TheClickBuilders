@@ -5,10 +5,10 @@ type SiteLogoProps = {
   loading?: 'eager' | 'lazy'
 }
 
-/** Primary mark — transparent PNG so it sits flush on any background. */
+/** Primary mark — full-color PNG (includes brand navy plate). */
 const SRC = '/theclickbuilders-logo.png'
-const WIDTH = 655
-const HEIGHT = 411
+const WIDTH = 1024
+const HEIGHT = 682
 
 export function SiteLogo({ className = '', loading = 'lazy' }: SiteLogoProps) {
   return (
