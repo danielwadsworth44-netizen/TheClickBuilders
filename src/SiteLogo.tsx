@@ -7,8 +7,8 @@ type SiteLogoProps = {
 
 /** Primary mark — transparent PNG so it sits flush on any background. */
 const SRC = '/theclickbuilders-logo.png'
-const WIDTH = 638
-const HEIGHT = 398
+const WIDTH = 610
+const HEIGHT = 375
 
 export function SiteLogo({ className = '', loading = 'lazy' }: SiteLogoProps) {
   return (
