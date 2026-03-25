@@ -70,8 +70,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 14px;
-  padding: 10px 48px 10px;
+  gap: 10px;
+  padding: 6px 48px;
   border-bottom: 1px solid rgba(148, 163, 184, 0.12);
   /* Matches logo plate (sampled from asset) */
   background: #11132c;
@@ -97,14 +97,15 @@
 .brand-mark {
   display: inline-flex;
   align-items: center;
-  width: clamp(220px, 38vw, 340px);
+  flex-shrink: 0;
+  height: 52px;
 }
 
 .brand-logo-img {
   display: block;
-  width: 100%;
-  height: auto;
-  max-width: none;
+  height: 52px;
+  width: auto;
+  max-width: min(200px, 52vw);
   border-radius: 0;
   filter: none;
   object-fit: contain;
@@ -125,8 +126,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 46px;
-  padding: 0 18px;
+  min-height: 44px;
+  padding: 0 16px;
   border-radius: 999px;
   border: 1px solid rgba(148, 163, 184, 0.22);
   background: linear-gradient(135deg, rgba(30, 41, 59, 0.75), rgba(15, 23, 42, 0.85));
@@ -615,9 +616,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 14px;
-  padding-top: 18px;
-  padding-bottom: 32px;
+  gap: 8px;
+  padding: 8px 48px 12px;
   color: var(--muted);
   text-align: center;
   /* Same plate as logo + header so the mark reads seamless */
@@ -634,7 +634,8 @@
 .footer-logo {
   display: inline-flex;
   align-items: center;
-  width: min(280px, 78vw);
+  flex-shrink: 0;
+  height: 52px;
 }
 
 .footer-email {
@@ -864,9 +865,8 @@
   }
 
   .site-header {
-    gap: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    gap: 8px;
+    padding: 5px 20px;
   }
 
   .site-nav {
@@ -892,9 +892,8 @@
 
 @media (max-width: 640px) {
   .site-header {
-    gap: 8px;
-    padding-top: 6px;
-    padding-bottom: 6px;
+    gap: 6px;
+    padding: 4px 20px;
   }
 
   .brand {
@@ -904,7 +903,12 @@
   }
 
   .brand-mark {
-    width: min(240px, 72vw);
+    height: 48px;
+  }
+
+  .brand-logo-img {
+    height: 48px;
+    max-width: min(180px, 64vw);
   }
 
   .site-nav {
@@ -921,9 +925,17 @@
   }
 
   .site-footer {
-    gap: 10px;
-    padding-top: 12px;
-    padding-bottom: 18px;
+    gap: 6px;
+    padding: 6px 20px 10px;
+  }
+
+  .footer-logo {
+    height: 48px;
+  }
+
+  .footer-logo .brand-logo-img {
+    height: 48px;
+    max-width: min(180px, 64vw);
   }
 
   .site-nav button,

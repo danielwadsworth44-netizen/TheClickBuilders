@@ -7,8 +7,8 @@ type SiteLogoProps = {
 
 /** Primary mark — full-color PNG (includes brand navy plate). */
 const SRC = '/theclickbuilders-logo.png'
-const WIDTH = 1024
-const HEIGHT = 682
+const WIDTH = 653
+const HEIGHT = 415
 
 export function SiteLogo({ className = '', loading = 'lazy' }: SiteLogoProps) {
   return (
