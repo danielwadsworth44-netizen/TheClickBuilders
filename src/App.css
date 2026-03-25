@@ -99,12 +99,22 @@
   width: clamp(190px, 20vw, 250px);
 }
 
-.brand-logo-svg {
+.brand-logo-img {
   display: block;
   width: 100%;
   height: auto;
   max-width: none;
-  max-height: none;
+  border-radius: 12px;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(148, 163, 184, 0.12);
+  object-fit: contain;
+}
+
+.brand-logo-img--footer {
+  box-shadow:
+    0 2px 16px rgba(15, 23, 42, 0.2),
+    0 0 0 1px rgba(148, 163, 184, 0.14);
 }
 
 .site-nav {
@@ -624,10 +634,6 @@
   display: inline-flex;
   align-items: center;
   width: min(220px, 62vw);
-}
-
-.brand-logo-svg--footer {
-  width: 100%;
 }
 
 .footer-email {

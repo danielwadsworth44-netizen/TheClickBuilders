@@ -8,8 +8,7 @@ import {
   type ReactNode,
 } from 'react'
 import './App.css'
-import { BrandLogoGraphic } from './BrandLogoGraphic'
-import { SplashScreen } from './SplashScreen'
+import { SiteLogo } from './SiteLogo'
 
 const bookingUrl =
   import.meta.env.VITE_GOOGLE_CALENDAR_BOOKING_URL || 'https://calendar.google.com/'
@@ -265,14 +264,6 @@ const getDiscoveryResponses = (stage: ChatStage, input: string): ChatMessage[] =
 }
 
 function App() {
-  const [splashDismissed, setSplashDismissed] = useState(() => {
-    try {
-      return sessionStorage.getItem('theclickbuilders_splash_seen') === '1'
-    } catch {
-      return false
-    }
-  })
-
   const [page, setPage] = useState<Page>(getPageFromHash)
   const [chatOpen, setChatOpen] = useState(false)
   const [userGoal, setUserGoal] = useState('')
@@ -373,8 +364,6 @@ function App() {
 
   return (
     <>
-      {!splashDismissed ? <SplashScreen onEnter={() => setSplashDismissed(true)} /> : null}
-
       <div className="page-shell">
       <header className="site-header">
         <button
@@ -384,7 +373,7 @@ function App() {
           aria-label="TheClickBuilders home"
         >
           <span className="brand-mark">
-            <BrandLogoGraphic variant="full" className="brand-logo-svg" showCursor />
+            <SiteLogo loading="eager" />
           </span>
         </button>
 
@@ -583,7 +572,7 @@ function App() {
       <footer className="site-footer">
         <div className="footer-brand" aria-label="TheClickBuilders footer">
           <span className="footer-logo">
-            <BrandLogoGraphic variant="full" className="brand-logo-svg brand-logo-svg--footer" showCursor />
+            <SiteLogo className="brand-logo-img--footer" />
           </span>
         </div>
         <a className="footer-email" href="mailto:theclickbuilders@gmail.com">
