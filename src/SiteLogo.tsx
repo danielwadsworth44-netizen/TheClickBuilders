@@ -5,10 +5,10 @@ type SiteLogoProps = {
   loading?: 'eager' | 'lazy'
 }
 
-/** Primary mark (dark canvas); use a light-background asset elsewhere if needed. */
+/** Primary mark — transparent PNG so it sits flush on any background. */
 const SRC = '/theclickbuilders-logo.png'
-const WIDTH = 653
-const HEIGHT = 408
+const WIDTH = 638
+const HEIGHT = 398
 
 export function SiteLogo({ className = '', loading = 'lazy' }: SiteLogoProps) {
   return (
