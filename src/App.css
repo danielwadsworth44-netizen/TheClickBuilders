@@ -471,6 +471,11 @@
   grid-template-columns: minmax(320px, 1fr) minmax(0, 0.92fr);
   gap: 24px;
   padding: 24px;
+  align-items: stretch;
+}
+
+.case-study-card--screens {
+  grid-template-columns: minmax(0, 1.14fr) minmax(260px, 0.86fr);
 }
 
 .browser-preview {
@@ -581,44 +586,40 @@
 }
 
 .browser-preview--real {
-  min-height: auto;
+  min-height: clamp(320px, 50vh, 580px);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   background:
     linear-gradient(180deg, rgba(194, 65, 12, 0.22), rgba(15, 23, 42, 0.94)),
     #0f172a;
 }
 
 .case-study-screens {
+  flex: 1 1 auto;
+  min-height: 0;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-rows: minmax(0, 1fr);
+  gap: 12px;
 }
 
-.case-study-screens figure {
+.case-study-shot {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
   min-width: 0;
-}
-
-.case-study-screens img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: min(42vh, 320px);
-  object-fit: cover;
-  object-position: top center;
+  min-height: 0;
   border-radius: 14px;
   border: 1px solid rgba(148, 163, 184, 0.18);
+  overflow: hidden;
 }
 
-.case-study-screens figcaption {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted-strong);
+.case-study-shot img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 200px;
+  object-fit: cover;
+  object-position: top center;
 }
 
 .case-study-live-wrap {
@@ -953,12 +954,23 @@
 }
 
 @media (max-width: 640px) {
-  .case-study-screens {
+  .case-study-card--screens {
     grid-template-columns: 1fr;
   }
 
-  .case-study-screens img {
-    max-height: min(48vh, 360px);
+  .browser-preview--real {
+    min-height: clamp(280px, 42vh, 480px);
+  }
+
+  .case-study-screens {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+  }
+
+  .case-study-shot img {
+    min-height: 200px;
+    max-height: 52vw;
+    height: auto;
   }
 
   .site-header {

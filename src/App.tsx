@@ -13,7 +13,7 @@ import { SiteLogo } from './SiteLogo'
 const bookingUrl =
   import.meta.env.VITE_GOOGLE_CALENDAR_BOOKING_URL || 'https://calendar.google.com/'
 
-type CaseStudyScreenshot = { src: string; label: string; alt: string }
+type CaseStudyScreenshot = { src: string; alt: string }
 
 type CaseStudy = {
   name: string
@@ -30,25 +30,21 @@ const caseStudies: CaseStudy[] = [
   {
     name: 'Bison Floral',
     category: 'Wedding & Events',
-    headline:
-      'Custom Next.js site for a Montana wedding florist—editorial storytelling, a confident gallery, and a smoother path to inquire.',
+    headline: 'Next.js wedding-florist site: editorial layout, gallery, and a straight path to inquire.',
     accent: 'accent-sun',
     liveUrl: 'https://bisonfloral.vercel.app/',
     details: [
-      'Homepage hero and sections that lead with positioning, services, and a clear inquire flow',
-      'Gallery page that pairs portfolio imagery with short testimonials so proof sits next to the work',
-      'HoneyBook-ready inquiry touchpoints plus Instagram linked from primary CTAs',
-      'Typography, spacing, and responsive layout tuned for a quiet-luxury, film-inspired brand',
+      'Hero and service blocks that drive toward inquiry',
+      'Gallery with testimonials next to the imagery',
+      'HoneyBook-ready flow, Instagram CTAs, mobile-first type',
     ],
     screenshots: [
       {
         src: '/case-studies/bison-floral-home.png',
-        label: 'Home',
         alt: 'Bison Floral website homepage with hero headline and service highlights',
       },
       {
         src: '/case-studies/bison-floral-gallery.png',
-        label: 'Gallery',
         alt: 'Bison Floral gallery page with floral photography and client quotes',
       },
     ],
@@ -204,10 +200,9 @@ function CaseStudyPreview({ study }: { study: CaseStudy }) {
         </div>
         <div className="case-study-screens">
           {study.screenshots.map((shot) => (
-            <figure key={shot.src}>
+            <div className="case-study-shot" key={shot.src}>
               <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" />
-              <figcaption>{shot.label}</figcaption>
-            </figure>
+            </div>
           ))}
         </div>
       </div>
@@ -612,7 +607,9 @@ function App() {
                   direction={index % 2 === 0 ? 'left' : 'right'}
                   delay={index * 90}
                 >
-                  <article className={`case-study-card ${study.accent}`}>
+                  <article
+                    className={`case-study-card ${study.accent}${study.screenshots?.length ? ' case-study-card--screens' : ''}`}
+                  >
                     <CaseStudyPreview study={study} />
                     <div className="case-study-copy">
                       <p className="work-category">{study.category}</p>
