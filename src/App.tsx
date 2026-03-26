@@ -13,7 +13,46 @@ import { SiteLogo } from './SiteLogo'
 const bookingUrl =
   import.meta.env.VITE_GOOGLE_CALENDAR_BOOKING_URL || 'https://calendar.google.com/'
 
-const caseStudies = [
+type CaseStudyScreenshot = { src: string; label: string; alt: string }
+
+type CaseStudy = {
+  name: string
+  category: string
+  headline: string
+  accent: string
+  details: string[]
+  palette?: string
+  liveUrl?: string
+  screenshots?: CaseStudyScreenshot[]
+}
+
+const caseStudies: CaseStudy[] = [
+  {
+    name: 'Bison Floral',
+    category: 'Wedding & Events',
+    headline:
+      'Custom Next.js site for a Montana wedding florist—editorial storytelling, a confident gallery, and a smoother path to inquire.',
+    accent: 'accent-sun',
+    liveUrl: 'https://bisonfloral.vercel.app/',
+    details: [
+      'Homepage hero and sections that lead with positioning, services, and a clear inquire flow',
+      'Gallery page that pairs portfolio imagery with short testimonials so proof sits next to the work',
+      'HoneyBook-ready inquiry touchpoints plus Instagram linked from primary CTAs',
+      'Typography, spacing, and responsive layout tuned for a quiet-luxury, film-inspired brand',
+    ],
+    screenshots: [
+      {
+        src: '/case-studies/bison-floral-home.png',
+        label: 'Home',
+        alt: 'Bison Floral website homepage with hero headline and service highlights',
+      },
+      {
+        src: '/case-studies/bison-floral-gallery.png',
+        label: 'Gallery',
+        alt: 'Bison Floral gallery page with floral photography and client quotes',
+      },
+    ],
+  },
   {
     name: 'Summit Dental Studio',
     category: 'Healthcare',
@@ -152,6 +191,30 @@ function ChatIcon() {
       <circle cx="15.5" cy="11" r="1.1" fill="#fff" />
     </svg>
   )
+}
+
+function CaseStudyPreview({ study }: { study: CaseStudy }) {
+  if (study.screenshots?.length) {
+    return (
+      <div className="browser-preview browser-preview--real">
+        <div className="browser-topbar" aria-hidden="true">
+          <span />
+          <span />
+          <span />
+        </div>
+        <div className="case-study-screens">
+          {study.screenshots.map((shot) => (
+            <figure key={shot.src}>
+              <img src={shot.src} alt={shot.alt} loading="lazy" decoding="async" />
+              <figcaption>{shot.label}</figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    )
+  }
+
+  return <BrowserPreview palette={study.palette ?? 'sky'} />
 }
 
 function BrowserPreview({ palette }: { palette: string }) {
@@ -538,7 +601,7 @@ function App() {
               <p className="eyebrow">Case studies</p>
               <h1>Custom landing pages built to convert.</h1>
               <p className="hero-text">
-                Quick mockups that show the polish fast.
+                Real client work on Bison Floral, plus concept mockups that show the polish fast.
               </p>
             </Reveal>
 
@@ -550,11 +613,18 @@ function App() {
                   delay={index * 90}
                 >
                   <article className={`case-study-card ${study.accent}`}>
-                    <BrowserPreview palette={study.palette} />
+                    <CaseStudyPreview study={study} />
                     <div className="case-study-copy">
                       <p className="work-category">{study.category}</p>
                       <h2>{study.name}</h2>
                       <p>{study.headline}</p>
+                      {study.liveUrl ? (
+                        <p className="case-study-live-wrap">
+                          <a className="case-study-live-link" href={study.liveUrl} target="_blank" rel="noreferrer">
+                            View live site
+                          </a>
+                        </p>
+                      ) : null}
                       <ul className="case-study-points">
                         {study.details.map((detail) => (
                           <li key={detail}>{detail}</li>
