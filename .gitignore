@@ -18,6 +18,12 @@ tools/lead-finder/out
 # Local-only scraper / future API tooling — never commit or push
 scraper/
 
+# Separate Opvexa app (own GitHub repo + Vercel)
+opvexa/
+
+# Local video review frames (not for git)
+.tmp-video-review/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
